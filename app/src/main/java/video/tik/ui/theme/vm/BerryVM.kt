@@ -10,6 +10,7 @@ import video.tik.dom.BerryDescription
 class BerryVM : ViewModel() {
 
     val scores = MutableStateFlow(0)
+    val boom = MutableStateFlow(false)
 
     val berryListOfStates = MutableStateFlow(
         listOf(
@@ -45,20 +46,23 @@ class BerryVM : ViewModel() {
             val newElement = newList[berryNumber].copy(isShow = true, isDetonate = true)
             newList[berryNumber] = newElement
             berryListOfStates.value = newList
+            boom.value = true
 
-            val scoreToIncrease = when(berryListOfStates.value[berryNumber].toDisplay){
-                R.drawable.huckleberyllium -> 3
-                R.drawable.blueberyllium -> 2
-                R.drawable.boysenberyllium -> 1
-                else -> 0
-            }
 
-            increaseScores(scoreToIncrease)
         } else {
             val newElement = newList[berryNumber].copy(isShow = true)
             newList[berryNumber] = newElement
             berryListOfStates.value = newList
         }
+
+        val scoreToIncrease = when(berryListOfStates.value[berryNumber].toDisplay){
+            R.drawable.huckleberyllium -> 3
+            R.drawable.blueberyllium -> 2
+            R.drawable.boysenberyllium -> 1
+            else -> 0
+        }
+
+        increaseScores(scoreToIncrease)
     }
 
     fun increaseScores(scoreToAdd: Int){
