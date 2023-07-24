@@ -370,10 +370,14 @@ fun BoxScope.PlayGroundBlock(berryVM: BerryVM, nav: NavHostController){
             .fillMaxSize()
             .background(BerryBlack)){
 
+            val currentTime = shared.getInt(Const.TIME, 20)
+            val newTime = currentTime - 5
+            shared.edit().putInt(Const.TIME, newTime).apply()
+
             Text(
-                text = "The time is Up",
+                text = "The time is Up, next time you'll have only $newTime seconds",
                 fontFamily = customFont,
-                fontSize = 32.sp,
+                fontSize = 24.sp,
                 modifier = Modifier
                     .align(Alignment.Center)
             )
